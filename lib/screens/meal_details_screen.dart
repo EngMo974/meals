@@ -1,3 +1,4 @@
+import 'package:cache_image/cache_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meals/dummy_data.dart';
@@ -21,12 +22,14 @@ class MealDetailScreen extends StatelessWidget {
               Container(
                 width: double.infinity,
                 height: 300,
-                child: Image.network(
-                  selectedMeal.imageUrl,
+                child: Image(
+                  image: CacheImage(selectedMeal.imageUrl),
                   fit: BoxFit.cover,
                 ),
               ),
-              buildSectionTitle('Ingredients', context),
+              selectedMeal.categories.first == 'c11'
+                  ? buildSectionTitle('المكونات', context)
+                  : buildSectionTitle('Ingredients', context),
               buildContainer(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
@@ -40,9 +43,11 @@ class MealDetailScreen extends StatelessWidget {
                             ? Text(
                                 selectedMeal.ingredients[index],
                                 textAlign: TextAlign.right,
+                                style: Theme.of(context).textTheme.headline5,
                               )
                             : Text(
                                 selectedMeal.ingredients[index],
+                                style: Theme.of(context).textTheme.headline5,
                               ),
                       ),
                     );
@@ -50,7 +55,9 @@ class MealDetailScreen extends StatelessWidget {
                   itemCount: selectedMeal.ingredients.length,
                 ),
               ),
-              buildSectionTitle('Steps', context),
+              selectedMeal.categories.first == 'c11'
+                  ? buildSectionTitle('الخطوات', context)
+                  : buildSectionTitle('Steps', context),
               buildContainer(
                 child: ListView.builder(
                   itemBuilder: (context, index) {
@@ -67,9 +74,15 @@ class MealDetailScreen extends StatelessWidget {
                                     ? Text(
                                         selectedMeal.steps[index],
                                         textAlign: TextAlign.right,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
                                       )
                                     : Text(
                                         selectedMeal.steps[index],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
                                       ),
                               )
                             : ListTile(
@@ -82,9 +95,15 @@ class MealDetailScreen extends StatelessWidget {
                                     ? Text(
                                         selectedMeal.steps[index],
                                         textAlign: TextAlign.right,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
                                       )
                                     : Text(
                                         selectedMeal.steps[index],
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline5,
                                       ),
                               ),
                         Divider(),
@@ -108,7 +127,7 @@ class MealDetailScreen extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: Theme.of(context).textTheme.headline6,
+        style: Theme.of(context).textTheme.headline5,
       ),
     );
   }
@@ -123,7 +142,7 @@ class MealDetailScreen extends StatelessWidget {
       margin: EdgeInsets.all(8),
       padding: EdgeInsets.all(8),
       width: 360,
-      height: 160,
+      height: 200,
       child: child,
     );
   }

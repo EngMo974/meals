@@ -1,3 +1,4 @@
+import 'package:cache_image/cache_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:meals/models/meals.dart';
@@ -78,8 +79,8 @@ class MealItem extends StatelessWidget {
                     topLeft: Radius.circular(16),
                     topRight: Radius.circular(16),
                   ),
-                  child: Image.network(
-                    imgUrl,
+                  child: Image(
+                    image: CacheImage(imgUrl),
                     height: 250,
                     width: double.infinity,
                     fit: BoxFit.cover,
